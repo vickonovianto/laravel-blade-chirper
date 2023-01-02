@@ -15,7 +15,9 @@ class ChirpController extends Controller
      */
     public function index()
     {
-        return view('chirps.index');
+        return view('chirps.index', [
+            'chirps' => Chirp::with('user')->latest()->get(),
+        ]);
     }
 
     /**
@@ -40,7 +42,7 @@ class ChirpController extends Controller
             'message' => 'required|string|max:255',
         ]);
 
-        
+
         $request->user()->chirps()->create($validated);
 
 
